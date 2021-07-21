@@ -7,9 +7,17 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickCancel;
+import com.vansuita.pickimage.listeners.IPickResult;
 import com.zomato.photofilters.SampleFilters;
 import com.zomato.photofilters.geometry.Point;
 import com.zomato.photofilters.imageprocessors.Filter;
@@ -24,16 +32,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         System.loadLibrary("NativeImageProcessor");
     }
 
-    ImageView MainImage;
+    ImageView MainImage,share,download;
     CardView filter1,filter2,filter3,filter4,filter5,filter6;
     Bitmap originalBitmap;
+    LinearLayout linearLayout;
+    HorizontalScrollView horizontalScrollView;
+    TextView tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         MainImage = findViewById(R.id.main_image);
+        getSupportActionBar().hide();
+        share =findViewById(R.id.share);
+        download = findViewById(R.id.download);
+        linearLayout = findViewById(R.id.MyLayout);
+        linearLayout.setVisibility(View.INVISIBLE);
+        horizontalScrollView = (HorizontalScrollView) findViewById(R.id.Sumbua);
+        horizontalScrollView.setVisibility(View.INVISIBLE);
+        tv = findViewById(R.id.tv);
+
+
         filter1 = findViewById(R.id.filter1);
         filter2 = findViewById(R.id.filter2);
         filter3 = findViewById(R.id.filter3);
@@ -41,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         filter5 = findViewById(R.id.filter5);
         filter6 = findViewById(R.id.filter6);
 
-        BitmapDrawable bitmapDrawable = (BitmapDrawable) MainImage.getDrawable();
-        originalBitmap = bitmapDrawable.getBitmap();
+//        BitmapDrawable bitmapDrawable = (BitmapDrawable) MainImage.getDrawable();
+//        originalBitmap = bitmapDrawable.getBitmap();
 
 
 
@@ -102,6 +122,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         }
+
+    }
+
+    public void Dialog(View view) {
+        PickImageDialog.build(new PickSetup())
+                .setOnPickResult(new IPickResult() {
+                    @Override
+                    public void onPickResult(PickResult r) {
+                        //TODO: do what you have to...
+                        //imageView.setImageBitmap();
+
+                        MainImage.setImageBitmap(r.getBitmap());
+                        BitmapDrawable bitmapDrawable = (BitmapDrawable) MainImage.getDrawable();
+                        originalBitmap = bitmapDrawable.getBitmap();
+                        linearLayout.setVisibility(View.VISIBLE);
+                        tv.setVisibility(View.INVISIBLE);
+                        horizontalScrollView.setVisibility(View.VISIBLE);
+                        share.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "Almost there", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        download.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(MainActivity.this, "Almost there", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+//
+
+                    }
+                })
+                .setOnPickCancel(new IPickCancel() {
+                    @Override
+                    public void onCancelClick() {
+                        //TODO: do what you have to if user clicked cancel
+                    }
+                }).show(getSupportFragmentManager());
+    }
+    private  void FanyaMeneno(){
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) MainImage.getDrawable();
+        originalBitmap = bitmapDrawable.getBitmap();
+
+
 
     }
 }

@@ -5,24 +5,90 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    <ImageView
-        android:layout_marginTop="32dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:id="@+id/main_image"
-        android:src="@drawable/girl1"
-        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/thisOne"
+        >
+        <ImageView
+            android:layout_marginTop="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:id="@+id/main_image"
+            android:src="@drawable/add"
+            android:layout_marginBottom="16dp"
+            android:onClick="Dialog"
+
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/thisOne"
+        android:id="@+id/MyLayout"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="visible"
+        >
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/share"
+            android:src="@drawable/share"
+            android:layout_centerVertical="true"
+            android:onClick="Dialog"
+            android:layout_gravity="center_horizontal"
+
+
+
+
+            />
+        <View
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+        <ImageView
+
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/download"
+            android:src="@drawable/download"
+            android:layout_centerVertical="true"
+            android:onClick="Dialog"
+            android:layout_gravity="center_horizontal"
+
+
+
+
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Please tap the + to start"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="64dp"
+        android:id="@+id/tv"
         />
+
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/main_image"
+        android:layout_below="@+id/MyLayout"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        android:id="@+id/Sumbua"
+        android:layout_alignParentBottom="true"
         >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
            >
             <View
                 android:layout_width="20dp"
